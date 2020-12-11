@@ -3,18 +3,27 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <title></title>
   </head>
   <body>
     <div id="root">
       <div id="container">
         <div id="container-left">
-          <div class="user-name">
 
-          </div>
-          <div id="notification-activation">
+          <div class="user-name"></div>
 
+          <div id="notification-activation"></div>
+
+          <div id="search-contact-container">
+            <div id="search-contact">
+              <input type="text" name="" value="">
+            </div>
           </div>
+
+          <ul>
+            <li v-for="contact in contacts"> {{contact.name}} </li>
+          </ul>
 
         </div>
         <div id="container-right">
