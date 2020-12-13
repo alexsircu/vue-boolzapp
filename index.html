@@ -2,10 +2,12 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css" integrity="sha512-f73UKwzP1Oia45eqHpHwzJtFLpvULbhVpEJfaWczo/ZCV5NWSnK4vLDnjTaMps28ocZ05RbI83k2RlQH92zy7A==" crossorigin="anonymous" />
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-    <title></title>
+    <title>Whatsapp Web</title>
   </head>
   <body>
     <div id="root">
@@ -51,7 +53,7 @@
 
           <div id="contacts-list-container">
             <ul id="contacts-list">
-              <li v-for="contact in contacts">
+              <li v-for="(contact, index) in contacts" @click="takeIndexContact(index)">
                 <span class="avatar-round-container">
                   <img :src="contact.avatar" alt="avatar" class="avatar-icon">
                 </span>
@@ -84,7 +86,11 @@
           </div>
 
           <div id="chat-core">
-
+            <ul id="messages-list">
+              <template v-for="(contact, i) in contacts" v-if="i == indexContactList">
+                <li v-for="(message, index) in contact.messages" :class="message.status == 'sent' ? 'sent' : 'received'">{{message.text}}</li>
+              </template>
+            </ul>
           </div>
 
           <div id="write-text-chat">
@@ -99,12 +105,10 @@
             </div>
 
           </div>
-
         </div>
         <!-- /contenitore di destra -->
 
       </div>
-
     </div>
 
     <script src="js/script.js" charset="utf-8"></script>
