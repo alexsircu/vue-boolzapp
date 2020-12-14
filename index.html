@@ -53,11 +53,12 @@
 
           <div id="contacts-list-container">
             <ul id="contacts-list">
-              <li v-for="(contact, index) in contacts" @click="takeIndexContact(index)">
+              <li v-for="(contact, index) in contacts" @click="selectUser(index)">
                 <span class="avatar-round-container">
                   <img :src="contact.avatar" alt="avatar" class="avatar-icon">
                 </span>
                 <span class="contact-name">{{contact.name}}</span>
+                <!--:class="indexContactList === index ? 'activeClass' : ''"  QUESTO E' IL TERNARIO CHE VOGLIO AGGIUNGERE IN LI PER CREARE LA CLASSE ACTIVE-->
                 <!-- <span class="contact-message">{{contact.messages}}</span> -->
                 <!-- <span>{{contact.date}}</span> -->
                  </li>
@@ -70,11 +71,11 @@
           <div class="user-name">
             <div>
               <div class="icon-round-container">
-                <img src="img/michele-avatar.png" alt="">
+                <img :src="contactInContactList.avatar" alt="avatar" alt="">
               </div>
               <div>
-                <span>Michele</span>
-                <!-- <p>Ultimo accesso</p> -->
+                <span>{{contactInContactList.name}}</span>
+                <p>Ultimo accesso alle {{ lastDate }}</p>
               </div>
             </div>
 
@@ -87,9 +88,7 @@
 
           <div id="chat-core">
             <ul id="messages-list">
-              <template v-for="(contact, i) in contacts" v-if="i == indexContactList">
-                <li v-for="(message, index) in contact.messages" :class="message.status == 'sent' ? 'sent' : 'received'">{{message.text}}</li>
-              </template>
+              <li v-for="(message, index) in contactInContactList.messages" :class="message.status == 'sent' ? 'sent' : 'received'">{{message.text}}</li>
             </ul>
           </div>
 

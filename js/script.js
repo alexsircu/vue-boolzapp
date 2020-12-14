@@ -95,14 +95,31 @@ var app = new Vue({
     		],
     	},
     ],
-    indexContactList: ""
+    contactInContactList: null,
+    activeClass: "",
+    lastDate: null
 
   },
+  created: function () {
+    this.contactInContactList = this.contacts[0];
+    this.lastDate =  this.contactInContactList.messages[this.contactInContactList.messages.length - 1].date;
+  },
   methods: {
-    takeIndexContact: function (index) {
-      this.indexContactList = index;
+    selectUser: function (index) {
+      this.contactInContactList = this.contacts[index];
+
+      let indexLastMessage = this.contactInContactList.messages.length - 1;
+      let lastMessage = this.contactInContactList.messages[indexLastMessage];
+      this.lastDate = lastMessage.date;
+      console.log(this.lastDate);
+
+
+
+      // this.activeClass = "active";
     }
+
   }
+
 
 
 
