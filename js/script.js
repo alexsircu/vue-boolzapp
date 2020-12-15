@@ -6,6 +6,10 @@
 // Visualizzazione dinamica dei messaggi: tramite la direttiva v-for, visualizzare tutti i messaggi relativi al contatto attivo all’interno del pannello della conversazione
 // Click sul contatto mostra la conversazione del contatto cliccato
 
+// Milestone 3
+// Aggiunta di un messaggio: l’utente scrive un testo nella parte bassa e digitando “enter” il testo viene aggiunto al thread sopra, come messaggio verde
+// Risposta dall’interlocutore: ad ogni inserimento di un messaggio, l’utente riceverà un “ok” come risposta, che apparirà dopo 1 secondo.
+
 var app = new Vue({
   el: '#root',
   data: {
@@ -96,26 +100,48 @@ var app = new Vue({
     	},
     ],
     contactInContactList: null,
-    activeClass: "",
-    lastDate: null
-
+    indexContactList: null,
+    lastDate: null,
+    newMessage: null
   },
   created: function () {
     this.contactInContactList = this.contacts[0];
+
     this.lastDate =  this.contactInContactList.messages[this.contactInContactList.messages.length - 1].date;
+
+    this.indexContactList = 0;
   },
   methods: {
     selectUser: function (index) {
       this.contactInContactList = this.contacts[index];
+      this.indexContactList = index;
 
       let indexLastMessage = this.contactInContactList.messages.length - 1;
       let lastMessage = this.contactInContactList.messages[indexLastMessage];
       this.lastDate = lastMessage.date;
-      console.log(this.lastDate);
+    },
+    sendNewMessage: function() {
+      let newObj = {
+        date: '',
+        text: this.newMessage,
+        status: 'sent'
+      }
 
+      if (this.newMessage !== "") {
+        this.contactInContactList.messages.push(newObj)
+        this.newMessage = "";
+      }
 
+      setTimeout(function() {
+        let newObj = {
+          date: '',
+          text: 'Ok',
+          status: 'received'
+        }
 
-      // this.activeClass = "active";
+        app.contactInContactList.messages.push(newObj)
+      }, 3000
+    );
     }
 
   }

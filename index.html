@@ -53,7 +53,7 @@
 
           <div id="contacts-list-container">
             <ul id="contacts-list">
-              <li v-for="(contact, index) in contacts" @click="selectUser(index)">
+              <li v-for="(contact, index) in contacts" :class="indexContactList == index ? 'active' : ''" @click="selectUser(index)">
                 <span class="avatar-round-container">
                   <img :src="contact.avatar" alt="avatar" class="avatar-icon">
                 </span>
@@ -97,7 +97,7 @@
               <i class="far fa-smile"></i>
             </div>
 
-            <input type="text" name="" value="" placeholder="Scrivi un messaggio">
+            <input type="text" name="" value="" v-model="newMessage" placeholder="Scrivi un messaggio" @keydown.enter="sendNewMessage">
 
             <div id="microphone-container">
               <i class="fas fa-microphone"></i>
