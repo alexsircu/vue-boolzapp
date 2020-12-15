@@ -10,6 +10,10 @@
 // Aggiunta di un messaggio: l’utente scrive un testo nella parte bassa e digitando “enter” il testo viene aggiunto al thread sopra, come messaggio verde
 // Risposta dall’interlocutore: ad ogni inserimento di un messaggio, l’utente riceverà un “ok” come risposta, che apparirà dopo 1 secondo.
 
+// Milestone 4
+// Ricerca utenti: scrivendo qualcosa nell’input a sinistra, vengono visualizzati solo i contatti il cui nome contiene le lettere inserite (es, Marco, Matteo Martina -> Scrivo “mar” rimangono solo Marco e Martina)
+
+
 var app = new Vue({
   el: '#root',
   data: {
@@ -102,7 +106,8 @@ var app = new Vue({
     contactInContactList: null,
     indexContactList: null,
     lastDate: null,
-    newMessage: null
+    newMessage: null,
+    searchedContact: null
   },
   created: function () {
     this.contactInContactList = this.contacts[0];
@@ -141,15 +146,18 @@ var app = new Vue({
 
         app.contactInContactList.messages.push(newObj)
       }, 3000
-    );
+      );
+    },
+    searchingContact: function() {
+      this.contacts.forEach(
+        (element) => {
+          element.visible = false;
+          if (element.name.includes(this.searchedContact)) {
+            element.visible = true;
+          }
+        }
+      );
+      this.searchedContact = "";
     }
-
   }
-
-
-
-
-
-
-
 });
